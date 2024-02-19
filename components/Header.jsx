@@ -17,7 +17,7 @@ import { Skeleton } from "./ui/skeleton";
 export default async function Header() {
     const user = await currentUser();
     return (
-        <header className="py-4 px-6 md:px-20 lg:px-32 flex items-center justify-between">
+        <header className="py-4 print:hidden px-6 md:px-20 lg:px-32 flex items-center justify-between">
             <Logo />
             <div className="flex items-center justify-center gap-2 md:gap-5">
                 <div className="flex items-center gap-2">

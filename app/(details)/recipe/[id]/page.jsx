@@ -31,7 +31,6 @@ export default function Recipe({ params }) {
             navigator.share({
                 title: data?.strMeal,
                 text: data?.strInstructions,
-                url: "",
             })
         }
         catch (err) {
@@ -64,7 +63,7 @@ export default function Recipe({ params }) {
             </div>)}
             {data && (
                 <div className="mt-10 px-6 md:px-20 lg:px-32">
-                    <iframe src={`https://www.youtube.com/embed/${data?.strYoutube?.split("v=")[1]}`} width="100%" height="300" frameBorder="0" allowFullScreen title={data?.strMeal} className="rounded-md"></iframe>
+                    <iframe src={`https://www.youtube.com/embed/${data?.strYoutube?.split("v=")[1]}`} width="100%" height="300" frameBorder="0" allowFullScreen title={data?.strMeal} className="rounded-md print:hidden"></iframe>
                     <div className="mt-7">
                         <h1 className="text-lg font-bold">{data?.strMeal}</h1>
                         <Table className="mt-2 mb-4">
@@ -187,10 +186,10 @@ export default function Recipe({ params }) {
                         </Table>
                         <span className="text-sm font-light opacity-70">Detailed instructions.</span>
                         <p className="text-sm mt-2">{data?.strInstructions}</p>
-                        <div className="flex flex-wrap items-center gap-2 mt-7">
+                        <div className="flex print:hidden flex-wrap items-center gap-2 mt-7">
                             <Button onClick={handleShare} className="flex items-center gap-1">Share <Share2 className="w-4 h-4" /></Button>
                             <Button onClick={handleBookmark} className="flex items-center gap-1" variant="secondary">Add to Favourate <Bookmark className="w-4 h-4" /></Button>
-                            <Button onClick={handlePrint} className="flex items-center gap-2" variant="secondary">Print <Printer className="w-4 h-4" /></Button>
+                            <Button onClick={handlePrint} className="flex items-center gap-2" variant="secondary">Save <Printer className="w-4 h-4" /></Button>
                         </div>
                     </div>
                 </div>

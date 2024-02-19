@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Header({ title }) {
     return (
-        <header className="py-4 px-6 md:px-20 lg:px-32 flex items-center justify-between">
+        <header className="print:hidden py-4 px-6 md:px-20 lg:px-32 flex items-center justify-between">
             <div>
                 <Button size="icon" asChild><Link href="/"><ArrowLeft className="h-5 w-5" /></Link></Button>
             </div>

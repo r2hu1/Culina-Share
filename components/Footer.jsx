@@ -3,7 +3,7 @@ import Logo from "./Logo";
 
 export default function Footer() {
     return(
-        <footer className="py-10 mt-10 px-6 md:px-20 lg:px-32">
+        <footer className="py-10 mt-10 px-6 md:px-20 lg:px-32 print:hidden">
             <div className="grid">
                 <Logo/>
                 <p className="text-xs opacity-80">We make it easy to find meals that fit your dietary preferences.</p>
