@@ -9,8 +9,8 @@ export default function Footer() {
                 <p className="text-xs opacity-80">We make it easy to find meals that fit your dietary preferences.</p>
             </div>
             <ul className="grid gap-2 py-4">
-                <li className="text-sm"><Link href="/">Home</Link></li>
-                <li className="text-sm"><Link href="/">About Us</Link></li>
+                <li className="text-sm"><Link className="hover:text-primary" href="/">Home</Link></li>
+                <li className="text-sm"><Link className="hover:text-primary" href="/">About Us</Link></li>
             </ul>
             <div>
                 <p className="text-sm opacity-80">© 2022 Culina Share. All rights reserved.</p>

@@ -13,10 +13,16 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function Search() {
-    const [cate,setCate] = useState('');
+    const [cate, setCate] = useState('');
+    const [active, setActive] = useState("Pasta");
+
     const handleSearch = (e) => {
         e.preventDefault();
         alert(cate);
+    };
+    const handleTrending = async (e) => {
+        e.preventDefault();
+        setActive(e.target.innerText);
     };
 
     return (
@@ -30,22 +36,34 @@ export default function Search() {
                         <SelectValue placeholder="Category" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="light">Light</SelectItem>
-                        <SelectItem value="dark">Dark</SelectItem>
-                        <SelectItem value="system">System</SelectItem>
+                        <SelectItem value="beef">Beef</SelectItem>
+                        <SelectItem value="chicken">Chicken</SelectItem>
+                        <SelectItem value="dessert">Dessert</SelectItem>
+                        <SelectItem value="lamb">Lamb</SelectItem>
+                        <SelectItem value="miscellaneous">Miscellaneous</SelectItem>
+                        <SelectItem value="pasta">Pasta</SelectItem>
+                        <SelectItem value="pork">Pork</SelectItem>
+                        <SelectItem value="seafood">Seafood</SelectItem>
+                        <SelectItem value="side">Side</SelectItem>
+                        <SelectItem value="starter">Starter</SelectItem>
+                        <SelectItem value="vegetarian">Vegetarian</SelectItem>
+                        <SelectItem value="vegan">Vegan</SelectItem>
+                        <SelectItem value="breakfast">Breakfast</SelectItem>
+                        <SelectItem value="goat">Goat</SelectItem>
                     </SelectContent>
                 </Select>
+                {cate && <Button size="icon" type="submit" variant="secondary"><SearchIcon className="h-4 w-4" /></Button>}
                 <Input type="text" placeholder="Search recipes.." />
                 <Button size="icon" type="submit" variant="secondary"><SearchIcon className="h-4 w-4" /></Button>
             </form>
             <div>
                 <span className="text-xs opacity-70">Popular<span className="text-primary">*</span></span>
                 <div className="flex gap-2 items-center mt-1 flex-wrap">
-                    <Button asChild size="sm" className="text-xs rounded-full h-8"><Link href="/category/pasta">Pasta</Link></Button>
-                    <Button asChild size="sm" className="text-xs rounded-full h-8" variant="secondary"><Link href="/category/seafood">Seafood</Link></Button>
-                    <Button asChild size="sm" className="text-xs rounded-full h-8" variant="secondary"><Link href="/category/dessert">Dessert</Link></Button>
-                    <Button asChild size="sm" className="text-xs rounded-full h-8" variant="secondary"><Link href="/category/starter">Starter</Link></Button>
-                    <Button asChild size="sm" className="text-xs rounded-full h-8" variant="secondary"><Link href="/category/breakfast">Breakfast</Link></Button>
+                    <Button size="sm" onClick={handleTrending} className="text-xs rounded-full h-8" variant={active == "Pasta" ? "default" : "secondary"}>Pasta</Button>
+                    <Button size="sm" onClick={handleTrending} className="text-xs rounded-full h-8" variant={active == "Seafood" ? "default" : "secondary"}>Seafood</Button>
+                    <Button size="sm" onClick={handleTrending} className="text-xs rounded-full h-8" variant={active == "Dessert" ? "default" : "secondary"}>Dessert</Button>
+                    <Button size="sm" onClick={handleTrending} className="text-xs rounded-full h-8" variant={active == "Starter" ? "default" : "secondary"}>Starter</Button>
+                    <Button size="sm" onClick={handleTrending} className="text-xs rounded-full h-8" variant={active == "Breakfast" ? "default" : "secondary"}>Breakfast</Button>
                 </div>
             </div>
         </>
