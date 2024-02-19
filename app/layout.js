@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ClerkProvider } from '@clerk/nextjs';
 import NextTopLoader from 'nextjs-toploader';
+import { Toaster } from 'sonner';
 
 const poppins = Poppins({
   subsets: ["latin-ext"],
@@ -42,6 +43,7 @@ export default function RootLayout({ children }) {
               showAtBottom={false}
             />
             {children}
+            <Toaster position="bottom-right"/>
           </ThemeProvider>
         </body>
       </html>
