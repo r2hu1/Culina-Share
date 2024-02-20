@@ -24,11 +24,13 @@ export default async function Header() {
                     {!user ? (
                         <Button asChild><Link href="/sign-in">SignIn</Link></Button>
                     ) : (
-                        <UserButton afterSignOutUrl="/" />
+                        <>
+                            <UserButton afterSignOutUrl="/" />
+                            <ClerkLoading>
+                                <Skeleton className="h-10 w-10 rounded-full" />
+                            </ClerkLoading>
+                        </>
                     )}
-                    <ClerkLoading>
-                        <Skeleton className="h-10 w-10 rounded-full" />
-                    </ClerkLoading>
                 </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>

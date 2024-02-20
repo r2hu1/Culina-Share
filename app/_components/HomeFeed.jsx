@@ -1,9 +1,8 @@
 "use client";
-import { a } from "@/catched/mealdb";
 import Card from "./Card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Loader2, SearchIcon } from "lucide-react";
+import { Bookmark, Loader2, Plus, SearchIcon } from "lucide-react";
 import {
     Select,
     SelectContent,
@@ -15,36 +14,35 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getByCategory } from "@/helpers/getByCategory";
 import { getByName } from "@/helpers/getByName";
+import Image from "next/image";
+import { getCurrentUserData } from "@/clerk/getCurrentUserData";
 
 export default function HomeFeed() {
-    
+
     const [cate, setCate] = useState('');
     const [active, setActive] = useState("Pasta");
     const [filtered, setFiltered] = useState([]);
     const [loding, setLoding] = useState(true);
     const [inpVal, setInpVal] = useState('');
-    
-    const byAlplabet = {
-        a: a,
-    };
+    const [userData, setUserData] = useState([]);
 
     const handleSearch = async (e) => {
         e.preventDefault();
         setLoding(true);
         setActive("none");
-        if(cate !== ""){
+        if (cate !== "") {
             await getByCategory(cate).then((data) => {
                 setFiltered([data]);
                 setLoding(false);
             });
         }
-        else if (inpVal != ""){
+        else if (inpVal != "") {
             await getByName(inpVal).then((data) => {
                 setFiltered([data]);
                 setLoding(false);
             });
         }
-        else{
+        else {
             setLoding(false);
         }
         setCate('');
@@ -66,13 +64,38 @@ export default function HomeFeed() {
             setLoding(false);
         });
     };
-    
+
+    const getAndSet = async () => {
+        await getCurrentUserData().then((data) => {
+            setUserData(data);
+        });
+    };
+
+
     useEffect(() => {
         getPastaCate();
+        getAndSet();
     }, []);
-    
+
     return (
         <section className="mb-10 px-6 md:px-20 lg:px-32 grid gap-3">
+            {userData?.firstName && (
+                <div className="grid gap-2 mb-5 mt-2">
+                    <div className="flex flex-wrap gap-2 items-center justify-between">
+                        <div>
+                            <h1 className="text-xl font-bold">Welcome <span className="text-primary">{userData?.firstName} {userData?.lastName}</span>!</h1>
+                            <p className="text-sm">Explore and share your favorite recipes.</p>
+                        </div>
+                        <div className="hidden sm:block">
+                            <Image className="rounded-full h-16 w-16" src={userData.imageUrl} alt="user-image" width={50} height={50} />
+                        </div>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2">
+                        <Button asChild><Link href="/new" className="flex gap-1 items-center">New <Plus className="h-4 w-4" /></Link></Button>
+                        <Button variant="secondary" size="icon" asChild><Link href="/saved"><Bookmark className="h-4 w-4" /></Link></Button>
+                    </div>
+                </div>
+            )}
             <div id="explore">
                 <span className="text-xs opacity-70">Search by category or name<span className="text-primary">*</span></span>
             </div>
@@ -119,11 +142,19 @@ export default function HomeFeed() {
                     </div>
                 )}
                 <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-fit mx-auto">
-                    {!loding && filtered[0]?.meals.map((item) => (
+                    {!loding && filtered[0]?.meals?.map((item) => (
                         <Card {...item} category={active} key={item.idMeal} />
                     ))}
+                    {!filtered[0]?.meals && !loding && (
+                        <div className="text-center h-[200px] items-center justify-center flex">
+                            <h1 className="text-base">No results found</h1>
+                        </div>
+                    )}
                 </div>
             </div>
+            {!loding && filtered[0]?.meals && (
+                <Button variant="ghost" className="w-full mx-auto sm:w-fit mt-7" disabled>No more results..</Button>
+            )}
         </section>
     )
 }

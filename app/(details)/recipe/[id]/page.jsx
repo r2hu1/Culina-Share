@@ -16,9 +16,11 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { addBookmark } from "@/helpers/addBookmark";
 
 export default function Recipe({ params }) {
     const [data, setData] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const getDetails = async () => {
         await getById(params.id).then((data) => {
@@ -39,7 +41,7 @@ export default function Recipe({ params }) {
     };
 
     const handlePrint = () => {
-        try{
+        try {
             window.print();
         }
         catch (err) {
@@ -47,9 +49,22 @@ export default function Recipe({ params }) {
         }
     };
 
-    const handleBookmark = () => {
-        toast.success("Recipe added to your bookmarks!");
-    };
+    const handleBookmark = async () => {
+        try {
+            setLoading(true);
+            const data = await addBookmark({ recipeid: params.id });
+            if (data.error) {
+                toast.error(data.error);
+            }
+            else {
+                toast.success("Recipe saved successfully!");
+            }
+            setLoading(false);
+        }
+        catch (err) {
+            toast.error(err.message);
+        }
+    }
 
     useEffect(() => {
         getDetails();
@@ -57,7 +72,7 @@ export default function Recipe({ params }) {
 
     return (
         <section>
-            <Header />
+            <Header title="Recipe Details"/>
             {!data && (<div className="h-[300px] flex items-center justify-center">
                 <Loader2 className="h-6 w-6 animate-spin" />
             </div>)}
@@ -65,8 +80,11 @@ export default function Recipe({ params }) {
                 <div className="mt-10 px-6 md:px-20 lg:px-32">
                     <iframe src={`https://www.youtube.com/embed/${data?.strYoutube?.split("v=")[1]}`} width="100%" height="300" frameBorder="0" allowFullScreen title={data?.strMeal} className="rounded-md print:hidden"></iframe>
                     <div className="mt-7">
-                        <h1 className="text-lg font-bold">{data?.strMeal}</h1>
-                        <Table className="mt-2 mb-4">
+                        <div className="flex flex-wrap items-center justify-between">
+                            <h1 className="text-lg font-semibold">{data?.strMeal}</h1>
+                            <Badge>{data?.strCategory}</Badge>
+                        </div>
+                        <Table className="mt-4 mb-4">
                             <TableHeader>
                                 <TableRow>
                                     <TableHead>Ingredients</TableHead>
@@ -74,30 +92,42 @@ export default function Recipe({ params }) {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                <TableRow>
-                                    <TableCell>{data?.strIngredient1}</TableCell>
-                                    <TableCell>{data?.strMeasure1}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>{data?.strIngredient2}</TableCell>
-                                    <TableCell>{data?.strMeasure2}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>{data?.strIngredient3}</TableCell>
-                                    <TableCell>{data?.strMeasure3}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>{data?.strIngredient4}</TableCell>
-                                    <TableCell>{data?.strMeasure4}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>{data?.strIngredient5}</TableCell>
-                                    <TableCell>{data?.strMeasure5}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>{data?.strIngredient6}</TableCell>
-                                    <TableCell>{data?.strMeasure6}</TableCell>
-                                </TableRow>
+                                {data?.strIngredient1 && (
+                                    <TableRow>
+                                        <TableCell>{data?.strIngredient1}</TableCell>
+                                        <TableCell>{data?.strMeasure1}</TableCell>
+                                    </TableRow>
+                                )}
+                                {data?.strIngredient2 && (
+                                    <TableRow>
+                                        <TableCell>{data?.strIngredient2}</TableCell>
+                                        <TableCell>{data?.strMeasure2}</TableCell>
+                                    </TableRow>
+                                )}
+                                {data?.strIngredient3 && (
+                                    <TableRow>
+                                        <TableCell>{data?.strIngredient3}</TableCell>
+                                        <TableCell>{data?.strMeasure3}</TableCell>
+                                    </TableRow>
+                                )}
+                                {data?.strIngredient4 && (
+                                    <TableRow>
+                                        <TableCell>{data?.strIngredient4}</TableCell>
+                                        <TableCell>{data?.strMeasure4}</TableCell>
+                                    </TableRow>
+                                )}
+                                {data?.strIngredient5 && (
+                                    <TableRow>
+                                        <TableCell>{data?.strIngredient5}</TableCell>
+                                        <TableCell>{data?.strMeasure5}</TableCell>
+                                    </TableRow>
+                                )}
+                                {data?.strIngredient6 && (
+                                    <TableRow>
+                                        <TableCell>{data?.strIngredient6}</TableCell>
+                                        <TableCell>{data?.strMeasure6}</TableCell>
+                                    </TableRow>
+                                )}
                                 {data?.strIngredient7 && (
                                     <TableRow>
                                         <TableCell>{data?.strIngredient7}</TableCell>
@@ -188,8 +218,8 @@ export default function Recipe({ params }) {
                         <p className="text-sm mt-2">{data?.strInstructions}</p>
                         <div className="flex print:hidden flex-wrap items-center gap-2 mt-7">
                             <Button onClick={handleShare} className="flex items-center gap-1">Share <Share2 className="w-4 h-4" /></Button>
-                            <Button onClick={handleBookmark} className="flex items-center gap-1" variant="secondary">Add to Favourate <Bookmark className="w-4 h-4" /></Button>
-                            <Button onClick={handlePrint} className="flex items-center gap-2" variant="secondary">Save <Printer className="w-4 h-4" /></Button>
+                            <Button onClick={handleBookmark} className="flex items-center gap-1" size="icon" variant="secondary">{!loading ? <Bookmark className="w-4 h-4" /> : <Loader2 className="w-4 h-4 animate-spin" />}</Button>
+                            <Button onClick={handlePrint} className="flex items-center gap-2" size="icon" variant="secondary"><Printer className="w-4 h-4" /></Button>
                         </div>
                     </div>
                 </div>

@@ -10,7 +10,7 @@ export default function Header({ title }) {
             <div>
                 <Button size="icon" asChild><Link href="/"><ArrowLeft className="h-5 w-5" /></Link></Button>
             </div>
-            <h1 className="text-lg font-semibold">Recipe Details</h1>
+            <h1 className="text-lg font-semibold">{title}</h1>
             <div className="flex items-center gap-2">
                 <ClerkLoaded>
                     <UserButton afterSignOutUrl="/" />
