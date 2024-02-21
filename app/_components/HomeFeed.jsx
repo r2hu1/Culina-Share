@@ -12,8 +12,8 @@ import {
 } from "@/components/ui/select";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getByCategory } from "@/helpers/getByCategory";
-import { getByName } from "@/helpers/getByName";
+import { getByCategory } from "@/server_actions/getByCategory";
+import { getByName } from "@/server_actions/getByName";
 import Image from "next/image";
 import { getCurrentUserData } from "@/clerk/getCurrentUserData";
 
@@ -153,7 +153,7 @@ export default function HomeFeed() {
                 </div>
             </div>
             {!loding && filtered[0]?.meals && (
-                <Button variant="ghost" className="w-full mx-auto sm:w-fit mt-7" disabled>No more results..</Button>
+                <Button variant="secondary" className="mx-auto sm:w-fit mt-7" disabled>No more results..</Button>
             )}
         </section>
     )

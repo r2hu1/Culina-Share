@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { ModeToggle } from "./ModeToggle";
 import { Bookmark, Home, Info, Menu, Plus } from "lucide-react";
 import {
     DropdownMenu,

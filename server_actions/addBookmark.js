@@ -3,7 +3,7 @@ import { getCurrentUserData } from "@/clerk/getCurrentUserData";
 import Saved from "@/mongodb/models/saved";
 import { connectToDb } from "@/mongodb/utils/connectToDb";
 
-export const addBookmark = async ({ recipeid }) => {
+export const addBookmark = async ({ recipeid, image, title, category }) => {
     const user = await getCurrentUserData();
     await connectToDb();
     try {
@@ -20,6 +20,9 @@ export const addBookmark = async ({ recipeid }) => {
         const addToBookmark = await Saved.create({
             recipeId: recipeid,
             email: user.email,
+            image: image,
+            title: title,
+            category: category,
         });
         return { "success": "Recipe saved successfully" };
     }

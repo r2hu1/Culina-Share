@@ -1,7 +1,7 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { addBookmark } from "@/helpers/addBookmark";
+import { addBookmark } from "@/server_actions/addBookmark";
 import { Bookmark, Loader2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,7 +14,7 @@ export default function Card({ category, ...props }) {
     const handleBookmark = async () => {
         try {
             setLoading(true);
-            const data = await addBookmark({ recipeid: props.idMeal });
+            const data = await addBookmark({ recipeid: props.idMeal, image: props.strMealThumb, title: props.strMeal, category: category });
             if (data.error) {
                 toast.error(data.error);
             }

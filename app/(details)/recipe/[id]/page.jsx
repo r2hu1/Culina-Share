@@ -1,7 +1,7 @@
 "use client";
 import Header from "@/app/_components/Header";
 import { Badge } from "@/components/ui/badge";
-import { getById } from "@/helpers/getById";
+import { getById } from "@/server_actions/getById";
 import { Bookmark, Loader2, Printer, Share2 } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { addBookmark } from "@/helpers/addBookmark";
+import { addBookmark } from "@/server_actions/addBookmark";
 
 export default function Recipe({ params }) {
     const [data, setData] = useState("");
@@ -52,9 +52,9 @@ export default function Recipe({ params }) {
     const handleBookmark = async () => {
         try {
             setLoading(true);
-            const data = await addBookmark({ recipeid: params.id });
-            if (data.error) {
-                toast.error(data.error);
+            const datas = await addBookmark({ recipeid: data?.idMeal, image: data?.strMealThumb, title: data?.strMeal, category: data?.strCategory });
+            if (datas.error) {
+                toast.error(datas.error);
             }
             else {
                 toast.success("Recipe saved successfully!");
