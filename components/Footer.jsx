@@ -14,7 +14,7 @@ export default function Footer() {
             </div>
             <ul className="grid gap-2 py-4">
                 <li className="text-sm"><Link className="hover:text-primary" href="/">Home</Link></li>
-                <li className="text-sm"><Link className="hover:text-primary" href="/about">About Us</Link></li>
+                <li className="text-sm"><Link className="hover:text-primary" href="/about-us">About Us</Link></li>
             </ul>
             <div>
                 <p className="text-sm opacity-80">© 2022 Culina Share. All rights reserved.</p>
