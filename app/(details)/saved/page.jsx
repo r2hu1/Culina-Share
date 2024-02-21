@@ -13,7 +13,6 @@ import { toast } from "sonner";
 
 export default function Saved() {
     const [userSaved, setUserSaved] = useState([]);
-    const [filtered, setFiltered] = useState([]);
     const [loding, setLoding] = useState(false);
     const [dlLoading, setDlLoading] = useState(false);
 
