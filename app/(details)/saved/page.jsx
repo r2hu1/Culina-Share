@@ -26,31 +26,32 @@ export default function Saved() {
             for (let i = 0; i < userSaved.length; i++) {
                 userSaved.push(userSaved[i]);
             };
-            setLoding(false);
         }
         catch (err) {
             console.log(err);
+        }
+        finally {
+            setLoding(false);
         }
     };
 
     const handleDelete = async (id) => {
         setDlLoading(true);
-        setLoding(true);
         try {
             await deleteBookmark({ recipeid: id }).then((data) => {
-                getA();
                 toast.success("Recipe removed successfully");
             });
         }
         catch (err) {
             console.log(err);
         }
-        setLoding(false);
-        setDlLoading(false);
+        finally {
+            setDlLoading(false);
+        }
     }
     useEffect(() => {
         getA();
-    }, []);
+    }, [dlLoading]);
     return (
         <section>
             <Header title="Saved" />
@@ -61,7 +62,7 @@ export default function Saved() {
                             <Loader2 className="h-6 w-6 animate-spin" />
                         </div>
                     )}
-                    {userSaved.map((recipe) => (
+                    {!loding && userSaved.map((recipe) => (
                         <div key={recipe.recipeId} className="relative border rounded-md overflow-hidden md:h-[300px]">
                             <div className="relative">
                                 <Image height={500} width={500} src={recipe.image} alt="thumbnail" className="w-full h-full aspect-square transition bg-secondary/50 hover:opacity-80 cursor-pointer" />
