@@ -55,12 +55,12 @@ export default function Saved() {
         <section>
             <Header title="Saved" />
             <div className="mt-12 px-6 md:px-20 lg:px-32">
+                {loding && (
+                    <div className="h-[300px] mx-auto flex items-center justify-center">
+                        <Loader2 className="h-6 w-6 animate-spin" />
+                    </div>
+                )}
                 <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-fit mx-auto">
-                    {loding && (
-                        <div className="h-[300px] flex items-center justify-center">
-                            <Loader2 className="h-6 w-6 animate-spin" />
-                        </div>
-                    )}
                     {!loding && userSaved.map((recipe) => (
                         <div key={recipe.recipeId} className="relative border rounded-md overflow-hidden md:h-[300px]">
                             <div className="relative">
@@ -79,12 +79,12 @@ export default function Saved() {
                             </div>
                         </div>
                     ))}
-                    {!loding && userSaved.length === 0 && (
-                        <div className="text-center h-[300px] flex items-center justify-center">
-                            <h1 className="text-base font-muted opacity-70">No saved recipes!</h1>
-                        </div>
-                    )}
                 </div>
+                {!loding && userSaved.length === 0 && (
+                    <div className="text-center h-[300px] flex items-center justify-center">
+                        <h1 className="text-base font-muted opacity-70">No saved recipes!</h1>
+                    </div>
+                )}
             </div>
         </section>
     )
