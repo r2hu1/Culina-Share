@@ -128,7 +128,7 @@ export default function HomeFeed() {
                 )}
                 <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-fit mx-auto">
                     {!loading && filteredMeals[0]?.meals?.map((meal) => (
-                        <Card {...meal} category={activeCategory} key={meal.idMeal} />
+                        <Card {...meal} category={activeCategory} key={meal.idMeal} showBookmark={userData && true}/>
                     ))}
                     {!filteredMeals[0]?.meals && !loading && (
                         <div className="text-center h-[200px] items-center justify-center flex">
