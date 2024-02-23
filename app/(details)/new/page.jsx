@@ -27,6 +27,7 @@ export default function Page() {
     const router = useRouter();
 
     const handleSubmit = async (e) => {
+        e.preventDefault();
         // getting some error i will fix it 
 
         // try {
