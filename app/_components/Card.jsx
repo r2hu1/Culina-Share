@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 
-export default function Card({ category, ...props }) {
+export default function Card({ category, showBookmark, ...props }) {
     const [loding, setLoading] = useState(false);
 
     const handleBookmark = async () => {
@@ -31,9 +31,9 @@ export default function Card({ category, ...props }) {
         <div key={props.strMeal} className="relative border rounded-md overflow-hidden md:h-[300px]">
             <div className="relative">
                 <Image height={500} width={500} src={props.strMealThumb} alt="thumbnail" className="w-full h-full aspect-square transition bg-secondary/50 hover:opacity-80 cursor-pointer" />
-                <div className="absolute top-0 left-0 right-0 w-full p-2 flex items-center justify-end">
+                {showBookmark && (<div className="absolute top-0 left-0 right-0 w-full p-2 flex items-center justify-end">
                     <Button size="icon" variant="secondary" onClick={handleBookmark}>{!loding ? <Bookmark className="h-4 w-4" /> : <Loader2 className="h-4 w-4 animate-spin" />}</Button>
-                </div>
+                </div>)}
             </div>
             <div className="py-3 px-4 grid gap-1 absolute z-10 bottom-0 left-0 right-0 w-full bg-background sm:bg-background/70 backdrop-blur-3xl">
                 <div className="flex items-center justify-between">
