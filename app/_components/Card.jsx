@@ -3,7 +3,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { addBookmark } from "@/server_actions/addBookmark";
 import { Bookmark, Loader2 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -30,7 +29,7 @@ export default function Card({ category, showBookmark, ...props }) {
     return (
         <div key={props.strMeal} className="relative border rounded-md overflow-hidden md:h-[300px]">
             <div className="relative">
-                <Image height={500} width={500} src={props.strMealThumb} alt="thumbnail" className="w-full h-full aspect-square transition bg-secondary/50 hover:opacity-80 cursor-pointer" />
+                <img height={500} width={500} src={props.strMealThumb} alt="thumbnail" className="w-full h-full aspect-square transition bg-secondary/50 hover:opacity-80 cursor-pointer" />
                 {showBookmark && (<div className="absolute top-0 left-0 right-0 w-full p-2 flex items-center justify-end">
                     <Button size="icon" variant="secondary" onClick={handleBookmark}>{!loding ? <Bookmark className="h-4 w-4" /> : <Loader2 className="h-4 w-4 animate-spin" />}</Button>
                 </div>)}
