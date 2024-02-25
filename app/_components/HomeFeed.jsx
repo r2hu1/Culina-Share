@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/select";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { getCurrentUserData } from "@/clerk/getCurrentUserData";
 import { getByCategory } from "@/server_actions/getByCategory";
 import { getByName } from "@/server_actions/getByName";
@@ -85,7 +84,7 @@ export default function HomeFeed() {
                             <p className="text-sm">Explore and share your favorite recipes.</p>
                         </div>
                         <div className="hidden sm:block">
-                            <Image className="rounded-full h-16 w-16" src={userData.imageUrl} alt="user-image" width={50} height={50} />
+                            <img className="rounded-full h-16 w-16" src={userData.imageUrl} alt="user-image" width={50} height={50} />
                         </div>
                     </div>
                     <div className="flex flex-wrap items-center gap-2">
