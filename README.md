@@ -37,6 +37,13 @@ git clone https://github.com/[username]/culina-share.git
 npm install
 ```
 
+- Setup clerk and mongodb environment variables
+
+```bash
+MONGO_URI=''
+CLERK...
+```
+
 - Start the server
 
 ```bash
